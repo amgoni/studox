@@ -1,0 +1,31 @@
+@import "../variables.scss";
+
+.button_dark {
+  background: $primary-color;
+  color: white;
+  border: 1px solid $primary-color;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  transition: all 0.1s ease;
+}
+
+.button_dark:hover {
+  background: $secondary-color;
+  border: 1px solid $secondary-color;
+  color: white;
+  cursor: pointer;
+}
+
+.button_light {
+  background: none;
+  border: 1px solid $primary-color;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  transition: all 0.1s ease;
+}
+
+.button_light:hover {
+  background: $primary-color;
+  color: white;
+  cursor: pointer;
+}

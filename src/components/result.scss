@@ -1,0 +1,51 @@
+@import "../variables.scss";
+
+#result {
+  margin-top: 10rem;
+  background-color: $primary-color;
+  color: white;
+  border-radius: 10px;
+  padding: 2rem;
+
+  h1 {
+    color: white;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .result-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .result-item {
+      padding: 1rem;
+
+      h3 {
+        font-weight: 400;
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #result {
+    padding: 1rem;
+
+    .result-container {
+      .result-item {
+        padding: 1rem 0 1rem 0;
+      }
+    }
+  }
+}
