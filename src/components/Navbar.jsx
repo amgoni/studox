@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import "./navbar.scss";
+import studox from "../images/studox.png";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -10,7 +11,7 @@ const Navbar = () => {
     <nav id="navbar">
       <div className="navbar__desktop">
         <a href="#">
-          <img src="../assets/studox.png" alt="Studox logo" />
+          <img src={studox} alt="Studox logo" />
         </a>
         <ul>
           <li>
@@ -33,7 +34,7 @@ const Navbar = () => {
 
       <div className="navbar__mobile">
         <a href="#">
-          <img src="../assets/studox.png" alt="Studox logo" />
+          <img src={studox} alt="Studox logo" />
         </a>
         {toggleMenu ? (
           <RiCloseLine color="34194c" size={30} onClick={toggleHandler} />

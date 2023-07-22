@@ -1,6 +1,7 @@
 import React from "react";
 import "./hero.scss";
 import CourseForm from "./CourseForm";
+import hero from "../images/hero.jpg";
 
 const Hero = () => {
   return (
@@ -18,7 +19,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="hero__image">
-        <img src="../assets/hero.jpg" alt="" />
+        <img src={hero} alt="" />
       </div>
       <div className="arrow-right"></div>
       <div className="circle"></div>
