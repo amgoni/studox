@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import "./navbar.scss";
 import studox from "../images/studox.png";
@@ -18,16 +19,13 @@ const Navbar = () => {
             <a href="#">Home</a>
           </li>
           <li>
-            <a href="#">Pricing</a>
-          </li>
-          <li>
             <a href="#">Sign Up</a>
           </li>
           <li>
-            <a href="#">Upload</a>
+            <a href="#">Contact</a>
           </li>
           <li>
-            <button>Contact Us</button>
+            <button>Upload</button>
           </li>
         </ul>
       </div>
@@ -48,16 +46,15 @@ const Navbar = () => {
                 <a href="#">Home</a>
               </li>
               <li>
-                <a href="#">Pricing</a>
-              </li>
-              <li>
                 <a href="#">Sign Up</a>
               </li>
               <li>
-                <a href="#">Upload</a>
+                <a href="#">Contact</a>
               </li>
               <li>
-                <button>Contact Us</button>
+                <Link to="/upload">
+                  <button>Upload</button>
+                </Link>
               </li>
             </ul>
           </div>

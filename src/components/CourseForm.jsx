@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./courseForm.scss";
 import Button from "./Button";
-import { Faculties } from "./Form Options/Faculties";
-import { Levels } from "./Form Options/Levels";
+import { Faculties } from "../Data";
+import { Levels } from "../Data";
 
 const CourseForm = () => {
+  const [selectedFaculty, setSelectedFaculty] = useState("none");
+
+  const handleFacultyChange = (event) => {
+    setSelectedFaculty(event.target.value);
+  };
+
+  const getDepartmentsByFaculty = () => {
+    const faculty = Faculties.find((f) => f.value === selectedFaculty);
+    return faculty ? faculty.departments : [];
+  };
+
   return (
     <div className="form">
       <form id="searchForm">
         <div className="searchForm__fields">
-          <label for="faculty">Faculty:</label>
-          <select id="faculty" name="faculty">
-            {/* <!-- Options for faculties go here --> */}
+          <label htmlFor="faculty">Faculty:</label>
+          <select
+            id="faculty"
+            name="faculty"
+            value={selectedFaculty}
+            onChange={handleFacultyChange}
+          >
+            <option value="none">Select faculty...</option>
+            {/* Options for faculties go here */}
             {Faculties.map((faculty) => (
               <option key={faculty.id} value={faculty.value}>
                 {faculty.name}
@@ -21,16 +38,21 @@ const CourseForm = () => {
           </select>
         </div>
         <div className="searchForm__fields">
-          <label for="department">Department:</label>
+          <label htmlFor="department">Department:</label>
           <select id="department" name="department">
-            {/* <!-- Options for departments go here --> */}
-            <option value="">Electrical and Electronics</option>
+            {/* Options for departments go here */}
+            {selectedFaculty !== "none" &&
+              getDepartmentsByFaculty().map((department) => (
+                <option key={department} value={department}>
+                  {department}
+                </option>
+              ))}
           </select>
         </div>
         <div className="searchForm__fields">
-          <label for="level">Level:</label>
+          <label htmlFor="level">Level:</label>
           <select id="level" name="level">
-            {/* <!-- Options for years go here --> */}
+            {/* Options for years go here */}
             {Levels.map((level) => (
               <option key={level.id} value={level.value}>
                 {level.name}
@@ -39,14 +61,14 @@ const CourseForm = () => {
           </select>
         </div>
         <div className="searchForm__fields">
-          <label for="course">Course:</label>
+          <label htmlFor="course">Course:</label>
           <select id="course" name="course">
-            {/* <!-- Options for courses go here --> */}
+            {/* Options for courses go here */}
             <option value="EE502">EE502</option>
           </select>
         </div>
         <div className="searchForm__fields">
-          <label for="courseCode">Course Code:</label>
+          <label htmlFor="courseCode">Course Code:</label>
           <div className="searchForm__field-search">
             <input type="text" id="courseCode" name="courseCode" />
             <Button
