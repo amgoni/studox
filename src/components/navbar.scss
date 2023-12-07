@@ -44,6 +44,16 @@ img {
         color: white;
         cursor: pointer;
       }
+
+      .button-dark {
+        background: $primary-color;
+        color: white;
+      }
+
+      .button-dark:hover {
+        background: none;
+        color: $primary-color;
+      }
     }
   }
 }

@@ -67,21 +67,6 @@ const CourseForm = () => {
             <option value="EE502">EE502</option>
           </select>
         </div>
-        <div className="searchForm__fields">
-          <label htmlFor="courseCode">Course Code:</label>
-          <div className="searchForm__field-search">
-            <input type="text" id="courseCode" name="courseCode" />
-            <Button
-              title={
-                <FontAwesomeIcon
-                  icon="fas fa-search"
-                  className="search__form-button-icon"
-                />
-              }
-              color="dark"
-            />
-          </div>
-        </div>
       </form>
     </div>
   );
