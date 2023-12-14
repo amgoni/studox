@@ -4,8 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding-top: 2rem;
+  padding-top: 1rem;
   color: $primary-color;
+  width: 80%;
+  margin: 0 auto;
 
   .hero__container {
     width: 36%;

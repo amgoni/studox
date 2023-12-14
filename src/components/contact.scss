@@ -1,53 +1,167 @@
 @import "../variables.scss";
 
-#contact {
-  width: 50%;
-  margin: 3rem auto;
-  padding: 1rem;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.1);
+.contact-container {
+  width: 80%;
+  margin: 5rem auto;
 
-  h1 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
+  .contact-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
 
-  form {
-    input {
-      font-family: $font;
-      font-size: 1rem;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid $primary-color;
-      border-radius: 5px;
-      width: 100%;
+    @media screen and (max-width: 480px) {
+      flex-direction: column;
     }
 
-    textarea {
-      @extend input;
+    .contact-info {
+      width: 30%;
+
+      @media screen and (max-width: 480px) {
+        width: 100%;
+        margin-top: 2rem;
+      }
+
+      .contact-info-item {
+        margin-bottom: 4rem;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: 480px) {
+          margin-bottom: 2rem;
+        }
+
+        @media screen and (max-width: 380px) {
+          margin-bottom: 1rem;
+        }
+
+        svg {
+          font-size: 1.5rem;
+          color: $primary-color;
+
+          @media screen and (max-width: 380px) {
+            font-size: 1rem;
+          }
+        }
+
+        a {
+          font-size: 1.2rem;
+          margin-left: 2rem;
+
+          @media screen and (max-width: 380px) {
+            font-size: 1rem;
+            margin-left: 1rem;
+          }
+        }
+
+        a:hover {
+          color: $primary-color;
+        }
+      }
+
+      .socials {
+        display: flex;
+
+        align-items: center;
+
+        @media screen and (max-width: 768px) {
+          justify-content: flex-start;
+        }
+
+        a {
+          font-size: 3rem;
+          color: $primary-color;
+          transition: color 0.2s ease-in-out;
+          margin-right: 2rem;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          @media screen and (max-width: 768px) {
+            font-size: 2rem;
+          }
+        }
+
+        a:hover {
+          color: $primary-color;
+        }
+      }
     }
-  }
-}
 
-@media screen and (max-width: 768px) {
-  #contact {
-    width: 80%;
-  }
-}
+    .reservation-form {
+      width: 50%;
 
-@media screen and (max-width: 480px) {
-  #contact {
-    width: 100%;
-    box-shadow: none;
+      @media screen and (max-width: 480px) {
+        width: 100%;
+      }
 
-    button {
-      width: 40%;
+      h3 {
+        font-size: 2rem;
+
+        @media screen and (max-width: 480px) {
+          font-size: 1.5rem;
+        }
+      }
+
+      .form-group {
+        margin: 1rem 0;
+
+        input {
+          width: 100%;
+          height: 3rem;
+          border: none;
+          border-bottom: 1px solid $primary-color;
+          border-radius: 0;
+          padding: 0 1rem;
+          font-size: 1rem;
+          color: $primary-color;
+        }
+
+        textarea {
+          width: 100%;
+          height: min-content;
+          border: none;
+          border-bottom: 1px solid $primary-color;
+          border-radius: 0;
+          padding: 1rem;
+          font-size: 1rem;
+          font-family: $font;
+          color: $primary-color;
+          outline: none;
+        }
+
+        button {
+          align-self: flex-start;
+          margin: 0;
+        }
+      }
+
+      .terms {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input {
+          margin-right: 0.5rem;
+          width: fit-content;
+        }
+
+        label {
+          font-size: 1rem;
+          font-weight: 300;
+          margin: 0;
+
+          @media screen and (max-width: 480px) {
+            font-size: 0.8rem;
+          }
+
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
 }

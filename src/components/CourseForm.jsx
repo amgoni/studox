@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import "./courseForm.scss";
-import Button from "./Button";
 import { Faculties } from "../Data";
 import { Levels } from "../Data";
 
@@ -20,6 +18,12 @@ const CourseForm = () => {
   return (
     <div className="form">
       <form id="searchForm">
+        <div className="searchForm__fields">
+          <label htmlFor="faculty">Institution:</label>
+          <select id="institution" name="institution" value={selectedFaculty}>
+            <option value="ATBU">ATBU</option>
+          </select>
+        </div>
         <div className="searchForm__fields">
           <label htmlFor="faculty">Faculty:</label>
           <select

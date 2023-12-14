@@ -4,7 +4,7 @@ import { db, storage } from "../config/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Faculties, Levels } from "../Data";
-import Button from "../components/Button";
+import Button from "./Button";
 
 const Upload = () => {
   const [selectedFaculty, setSelectedFaculty] = useState("none");

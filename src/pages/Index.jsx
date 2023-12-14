@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Result from "../components/Result";
-import About from "../components/About";
 import Contact from "../components/Contact";
 
 const Index = () => {
@@ -9,7 +8,6 @@ const Index = () => {
     <div>
       <Hero />
       <Result />
-      <About />
       <Contact />
     </div>
   );

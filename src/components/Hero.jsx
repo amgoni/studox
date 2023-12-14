@@ -1,4 +1,3 @@
-import React from "react";
 import "./hero.scss";
 import CourseForm from "./CourseForm";
 import hero from "../images/hero.jpg";

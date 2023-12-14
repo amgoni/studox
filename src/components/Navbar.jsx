@@ -1,19 +1,25 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import "./navbar.scss";
 import studox from "../images/studox.png";
 import AuthContext from "../store/auth-context";
 import Modal from "./Modal";
 import Authentication from "./Authentication";
-import Upload from "../pages/Upload";
+import Upload from "../components/Upload";
 
 const Navbar = () => {
-  const [toggleMenu, setToggleMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-  const toggleHandler = () => setToggleMenu((prev) => !prev);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const closeMenu = () => {
+    setShowMenu(false);
+  };
 
   const authCtx = useContext(AuthContext);
 
@@ -23,10 +29,12 @@ const Navbar = () => {
 
   const openAuthModal = () => {
     setIsAuthModalOpen(true);
+    closeMenu();
   };
 
   const openUploadModal = () => {
     setIsUploadModalOpen(true);
+    closeMenu();
   };
 
   const closeAuthModal = () => {
@@ -40,19 +48,19 @@ const Navbar = () => {
   return (
     <nav id="navbar">
       <div className="navbar__desktop">
-        <a href="#">
+        <Link to="/">
           <img src={studox} alt="Studox logo" />
-        </a>
+        </Link>
         <ul>
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
 
           <li>
-            <a href="#">About</a>
+            <Link to="/about">About Us</Link>
           </li>
           <li>
-            <a href="#">Contact Us</a>
+            <Link to="/contact">Contact Us</Link>
           </li>
           <li>
             <button onClick={openUploadModal}>Upload</button>
@@ -74,31 +82,46 @@ const Navbar = () => {
       </div>
 
       <div className="navbar__mobile">
-        <a href="#">
+        <Link to="/">
           <img src={studox} alt="Studox logo" />
-        </a>
-        {toggleMenu ? (
-          <RiCloseLine color="34194c" size={30} onClick={toggleHandler} />
-        ) : (
-          <RiMenu3Line color="34194c" size={30} onClick={toggleHandler} />
-        )}
-        {toggleMenu && (
+        </Link>
+        <div className="navbar-menu-icon" onClick={toggleMenu}>
+          {showMenu ? <FaXmark color="white" /> : <FaBars />}
+        </div>
+        {showMenu && (
           <div className="navbar__mobile-container">
             <ul>
               <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Sign Up</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
-              </li>
-              <li>
-                <Link to="/upload">
-                  <button>Upload</button>
+                <Link to="/" onClick={closeMenu}>
+                  Home
                 </Link>
               </li>
+              <li>
+                <Link to="/about" onClick={closeMenu}>
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" onClick={closeMenu}>
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <button onClick={openUploadModal}>Upload</button>
+              </li>
+              {authCtx.isLoggedIn ? (
+                <li>
+                  <button className="button-dark" onClick={logoutHandler}>
+                    Log Out
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <button className="button-dark" onClick={openAuthModal}>
+                    Login
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         )}

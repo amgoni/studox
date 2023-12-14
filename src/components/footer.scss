@@ -1,7 +1,137 @@
 @import "../variables.scss";
 
-#footer {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+.footer {
+  background-color: $tertiary-color;
+
+  .footer-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 6rem 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    @media screen and (max-width: 768px) {
+      width: 70%;
+      padding: 3rem 0 1rem 0;
+    }
+
+    a {
+      font-weight: 600;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    a:hover {
+      color: $primary-color;
+    }
+
+    .main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo {
+        img {
+          width: 10rem;
+        }
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 2rem;
+        }
+      }
+
+      .links {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 3rem;
+        }
+
+        a {
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .contact {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 1rem;
+        }
+
+        a {
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .socials {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media screen and (max-width: 768px) {
+          justify-content: space-around;
+          width: 100%;
+        }
+
+        a {
+          font-size: 3rem;
+          transition: color 0.2s ease-in-out;
+          margin-right: 1rem;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          @media screen and (max-width: 1024px) {
+            font-size: 2rem;
+          }
+
+          @media screen and (max-width: 768px) {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+
+    .sub {
+      display: flex;
+      justify-content: space-evenly;
+      border-top: 2px solid white;
+      margin-top: 1rem;
+      padding-top: 1rem;
+
+      a {
+        font-weight: 300;
+        font-size: 1rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+
+        a {
+          margin-bottom: 1rem;
+          color: white;
+          text-align: center;
+        }
+      }
+
+      a:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+    }
+  }
 }

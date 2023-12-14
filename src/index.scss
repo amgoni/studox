@@ -13,7 +13,18 @@ body {
 }
 
 h1 {
-  font-weight: 900;
+  font-weight: 800;
+  font-size: 4rem;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 2rem;
 }
 
 li {
@@ -23,4 +34,10 @@ li {
 a {
   text-decoration: none;
   cursor: pointer;
+  color: $primary-color;
+}
+
+button {
+  cursor: pointer;
+  font-family: $font;
 }

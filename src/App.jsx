@@ -2,8 +2,8 @@ import { Route, Navigate, Routes } from "react-router-dom";
 import "./App.scss";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Upload from "./pages/Upload";
 import Index from "./pages/Index";
+import About from "./pages/About";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Navigate to="/index" />} />
         <Route path="/index" element={<Index />} />
-        <Route path="/upload" element={<Upload />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </div>

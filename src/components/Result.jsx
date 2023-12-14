@@ -28,14 +28,17 @@ const Result = () => {
       <div className="result-container">
         {materials.map((material, index) => (
           <div className="result-item" key={index}>
-            <h3>
+            <p>
               <a href={material.imageURLs[0]}>
                 {" "}
                 {/* Assuming the first image URL is the link */}
-                {index + 1}. {material.courseCode} {material.type}{" "}
-                {material.semester} {material.session}
+                {index + 1}.{" "}
+                <span className="course-code">{material.courseCode}</span>{" "}
+                <span className="material-type">{material.type}</span>{" "}
+                <span className="material-semester">{material.semester}</span>{" "}
+                <span className="material-session">{material.session}</span>
               </a>
-            </h3>
+            </p>
           </div>
         ))}
       </div>

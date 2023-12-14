@@ -1,6 +1,8 @@
 @import "../variables.scss";
 
 #result {
+  width: 80%;
+  margin: 0 auto;
   margin-top: 10rem;
   background-color: $primary-color;
   color: white;
@@ -22,12 +24,28 @@
     .result-item {
       padding: 1rem;
 
-      h3 {
+      p {
         font-weight: 400;
+        font-size: 1.2rem;
+
+        @media screen and (max-width: 480px) {
+          font-size: 1rem;
+        }
 
         a {
           color: white;
           text-decoration: none;
+
+          .course-code {
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+
+          .material-type,
+          .material-semester,
+          .material-session {
+            text-transform: capitalize;
+          }
         }
 
         a:hover {
