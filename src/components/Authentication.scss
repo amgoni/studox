@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  width: 500px;
   background-color: $primary-color;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
@@ -14,6 +14,7 @@
 
   @media screen and (max-width: 768px) {
     height: 100vh;
+    width: unset;
   }
 
   h1 {

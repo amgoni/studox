@@ -59,6 +59,8 @@
 @media screen and (max-width: 480px) {
   #result {
     padding: 1rem;
+    width: 90%;
+    border-radius: 0;
 
     .result-container {
       .result-item {

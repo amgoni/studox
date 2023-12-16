@@ -33,8 +33,12 @@ const Navbar = () => {
   };
 
   const openUploadModal = () => {
-    setIsUploadModalOpen(true);
     closeMenu();
+    if (authCtx.isLoggedIn) {
+      setIsUploadModalOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
   };
 
   const closeAuthModal = () => {

@@ -152,6 +152,7 @@ const Authentication = ({ closeModal }) => {
         }, 1000);
       })
       .catch((err) => {
+        setIsLoading(false);
         setErrorMessage(err.message); // Set the error message
       });
   };

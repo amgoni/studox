@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./Upload.scss";
 import { db, storage } from "../config/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Faculties, Levels } from "../Data";
 import Button from "./Button";
+import AuthContext from "../store/auth-context";
 
-const Upload = () => {
+// eslint-disable-next-line react/prop-types
+const Upload = ({ closeModal }) => {
   const [selectedFaculty, setSelectedFaculty] = useState("none");
   const [submitMessage, setSubmitMessage] = useState(""); // Message to show after submission
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
@@ -23,6 +25,8 @@ const Upload = () => {
     images: [], // Store an array of selected images
     imageURLs: [], // Store an array of image URLs
   });
+
+  const authCtx = useContext(AuthContext);
 
   // const handleFacultyChange = (event) => {
   //   setSelectedFaculty(event.target.value);
@@ -98,13 +102,36 @@ const Upload = () => {
         level: formData.level,
         session: formData.session,
         type: formData.type,
+        uploader: authCtx.userId,
         imageURLs, // Add the image URLs
       };
 
       const docRef = await addDoc(collection(db, "materials"), materialData);
       setIsSubmitSuccess(true); // Submission successful
-      setSubmitMessage("Data saved successfully.");
-      console.log("Document written with ID:", docRef.id);
+      setSubmitMessage("Upload successful!");
+
+      // Reset form data
+      setFormData({
+        courseCode: "",
+        courseName: "",
+        department: "",
+        faculty: "",
+        semester: "",
+        level: "",
+        session: "",
+        type: "assignment",
+        images: [], // Store an array of selected images
+        imageURLs: [], // Store an array of image URLs
+      });
+
+      // Close the upload modal
+      setTimeout(() => {
+        closeModal();
+      }, 2000);
+
+      setSubmitMessage(""); // Reset submit message
+
+      console.log("Document written with ID: ", docRef.id);
     } catch (error) {
       setIsSubmitSuccess(false); // Submission failed
       setSubmitMessage("Error adding document.");
@@ -282,7 +309,7 @@ const Upload = () => {
                 isSubmitSuccess ? "success" : "error"
               }`}
             >
-              {submitMessage}
+              <h3>Upload successful!</h3>
             </div>
           )}
         </div>

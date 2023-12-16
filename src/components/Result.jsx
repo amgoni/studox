@@ -24,7 +24,7 @@ const Result = () => {
 
   return (
     <section id="result">
-      <h1>Search results...</h1>
+      <h1>All Documents</h1>
       <div className="result-container">
         {materials.map((material, index) => (
           <div className="result-item" key={index}>
