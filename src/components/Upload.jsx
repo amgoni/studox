@@ -209,8 +209,8 @@ const Upload = ({ closeModal }) => {
                   {/* Options for departments go here */}
                   {selectedFaculty !== "none" &&
                     getDepartmentsByFaculty().map((department) => (
-                      <option key={department} value={department}>
-                        {department}
+                      <option key={department.id} value={department.value}>
+                        {department.name}
                       </option>
                     ))}
                 </select>

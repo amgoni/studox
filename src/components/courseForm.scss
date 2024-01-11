@@ -60,6 +60,12 @@ form {
       border-left: none;
     }
   }
+
+  button {
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 }
 
 @media screen and (max-width: 768px) {

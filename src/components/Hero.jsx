@@ -2,7 +2,8 @@ import "./hero.scss";
 import CourseForm from "./CourseForm";
 import hero from "../images/hero.jpg";
 
-const Hero = () => {
+// eslint-disable-next-line react/prop-types
+const Hero = ({ updateResults }) => {
   return (
     <section id="hero">
       <div className="hero__container">
@@ -13,7 +14,7 @@ const Hero = () => {
         <div className="hero__form-container">
           <h3>Browse documents</h3>
           <div className="">
-            <CourseForm className="hero__form" />
+            <CourseForm updateResults={updateResults} className="hero__form" />
           </div>
         </div>
       </div>
