@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
 import About from "./pages/About";
+import Material from "./pages/Material";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route exact path="/" element={<Navigate to="/index" />} />
         <Route path="/index" element={<Index />} />
         <Route path="/about" element={<About />} />
+        <Route path="/material/:id" element={<Material />} />
       </Routes>
       <Footer />
     </div>

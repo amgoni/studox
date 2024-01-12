@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import "./result.scss";
+import { Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 
@@ -66,34 +67,6 @@ const Result = ({ searchCriteria }) => {
     }
   }, [searchCriteria]);
 
-  // useEffect(() => {
-  //   const fetchMaterials = async () => {
-  //     setIsLoading(true);
-
-  //     try {
-  //       const materialsCollection = await getDocs(collection(db, "materials")); // Replace with your Firestore collection name
-  //       const materialsArray = materialsCollection.docs.map((doc) => {
-  //         return { ...doc.data(), id: doc.id };
-  //       });
-  //       setMaterials(materialsArray);
-  //     } catch (error) {
-  //       console.error("Error fetching materials:", error);
-  //       setError("Error fetching materials. Please try again");
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   if (searchCriteria) {
-  //     fetchMaterials();
-  //   } else {
-  //     // Reset materials when there's no search criteria
-  //     setMaterials([]);
-  //   }
-  // }, [searchCriteria]); // The empty dependency array ensures this effect runs once, similar to componentDidMount
-
-  console.log(searchCriteria);
-
   return searchCriteria ? (
     <section id="result">
       <h1>Results:</h1>
@@ -107,15 +80,13 @@ const Result = ({ searchCriteria }) => {
           {materials.map((material, index) => (
             <div className="result-item" key={index}>
               <p>
-                <a href={material.imageURLs[0]}>
-                  {" "}
-                  {/* Assuming the first image URL is the link */}
+                <Link to={`../material/${material.id}`}>
                   {index + 1}.{" "}
                   <span className="course-code">{material.courseCode}</span>{" "}
                   <span className="material-type">{material.type}</span>{" "}
                   <span className="material-semester">{material.semester}</span>{" "}
                   <span className="material-session">{material.session}</span>
-                </a>
+                </Link>
               </p>
             </div>
           ))}
