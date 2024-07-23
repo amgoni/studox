@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import "./navbar.scss";
-import studox from "../images/studox.png";
+import logo from "../images/logo.svg";
 import AuthContext from "../store/auth-context";
 import Modal from "./Modal";
 import Authentication from "./Authentication";
@@ -53,7 +53,7 @@ const Navbar = () => {
     <nav id="navbar">
       <div className="navbar__desktop">
         <Link to="/">
-          <img src={studox} alt="Studox logo" />
+          <img src={logo} alt="Studox logo" />
         </Link>
         <ul>
           <li>
@@ -87,7 +87,7 @@ const Navbar = () => {
 
       <div className="navbar__mobile">
         <Link to="/">
-          <img src={studox} alt="Studox logo" />
+          <img src={logo} alt="Studox logo" />
         </Link>
         <div className="navbar-menu-icon" onClick={toggleMenu}>
           {showMenu ? <FaXmark color="white" /> : <FaBars />}
