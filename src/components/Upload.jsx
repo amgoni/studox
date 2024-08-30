@@ -22,8 +22,8 @@ const Upload = ({ closeModal }) => {
     level: "",
     session: "",
     type: "assignment",
-    images: [], // Store an array of selected images
-    imageURLs: [], // Store an array of image URLs
+    files: [],
+    fileURLs: [],
   });
 
   const authCtx = useContext(AuthContext);
@@ -40,10 +40,9 @@ const Upload = ({ closeModal }) => {
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
-      // Handle file input for multiple images
       setFormData({
         ...formData,
-        [name]: [...formData.images, ...files], // Append selected files
+        files: [...formData.files, ...files], // Add the files to the existing array
       });
     } else {
       setFormData({
@@ -57,44 +56,40 @@ const Upload = ({ closeModal }) => {
     }
   };
 
-  const uploadImages = async () => {
-    const promises = formData.images.map(async (image) => {
-      const storageRef = ref(storage, `images/${image.name}`);
+  const uploadFiles = async (files, folder) => {
+    const promises = files.map(async (file) => {
+      const storageRef = ref(storage, `${folder}/${file.name}`);
       try {
-        // Upload each image and get the download URL
-        const uploadTask = uploadBytes(storageRef, image);
+        const uploadTask = uploadBytes(storageRef, file);
         const snapshot = await uploadTask;
         const url = await getDownloadURL(snapshot.ref);
         return url;
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error(`Error uploading file:`, error);
         return null;
       }
     });
 
-    // Wait for all upload promises to complete
-    const imageURLs = await Promise.all(promises);
-    return imageURLs;
+    const fileURLs = await Promise.all(promises);
+    return fileURLs;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
-    const imageURLs = await uploadImages();
 
-    if (imageURLs.some((url) => url === null)) {
-      // If any image upload failed, display an error message
-      console.error("Image upload failed. Data will not be saved.");
-      setIsSubmitSuccess(false); // Submission failed
-      setSubmitMessage("Image upload failed. Data will not be saved.");
-      setIsProcessing(false); // Reset processing flag
-      return; // Exit early and don't save the data
+    const fileURLs = await uploadFiles(formData.files, "uploads");
+
+    if (fileURLs.some((url) => url === null)) {
+      setIsSubmitSuccess(false);
+      setSubmitMessage("File upload failed. Data will not be saved.");
+      setIsProcessing(false);
+      return;
     }
 
     try {
-      // Create a new object with the image URLs and other fields
       const materialData = {
-        courseCode: formData.courseCode, // Access courseCode from formData
+        courseCode: formData.courseCode,
         courseName: formData.courseName,
         department: formData.department,
         faculty: formData.faculty,
@@ -103,14 +98,13 @@ const Upload = ({ closeModal }) => {
         session: formData.session,
         type: formData.type,
         uploader: authCtx.userId,
-        imageURLs, // Add the image URLs
+        fileURLs, // Save all file URLs in a single field
       };
 
       const docRef = await addDoc(collection(db, "materials"), materialData);
-      setIsSubmitSuccess(true); // Submission successful
+      setIsSubmitSuccess(true);
       setSubmitMessage("Upload successful!");
 
-      // Reset form data
       setFormData({
         courseCode: "",
         courseName: "",
@@ -120,24 +114,21 @@ const Upload = ({ closeModal }) => {
         level: "",
         session: "",
         type: "assignment",
-        images: [], // Store an array of selected images
-        imageURLs: [], // Store an array of image URLs
+        files: [], // Reset the files array
+        fileURLs: [],
       });
 
-      // Close the upload modal
       setTimeout(() => {
         closeModal();
       }, 2000);
 
-      setSubmitMessage(""); // Reset submit message
-
       console.log("Document written with ID: ", docRef.id);
     } catch (error) {
-      setIsSubmitSuccess(false); // Submission failed
+      setIsSubmitSuccess(false);
       setSubmitMessage("Error adding document.");
       console.error("Error adding document:", error);
     } finally {
-      setIsProcessing(false); // Reset processing flag
+      setIsProcessing(false);
     }
   };
 
@@ -282,18 +273,16 @@ const Upload = ({ closeModal }) => {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="image">
-                Images <span className="required">*</span>
-              </label>
+              <label htmlFor="files">Upload Files (Images and PDFs)</label>
               <input
                 className="file-input"
                 type="file"
-                name="images"
-                id="image"
+                name="files"
+                id="files"
                 onChange={handleInputChange}
-                accept="image/*"
-                required
+                accept="image/*,application/pdf"
                 multiple
+                required
               />
             </div>
 

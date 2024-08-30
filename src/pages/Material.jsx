@@ -45,6 +45,11 @@ const Material = () => {
     slidesToScroll: 1,
   };
 
+  const isImage = (url) => {
+    const fileExtension = url.split("?")[0].split(".").pop().toLowerCase();
+    return ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+  };
+
   return (
     <div className="material">
       {material && (
@@ -65,8 +70,16 @@ const Material = () => {
 
           <div className="material-images">
             <Slider {...settings}>
-              {material.imageURLs.map((url, index) => (
-                <img key={index} src={url} alt={`Material ${index + 1}`} />
+              {material.fileURLs.map((url, index) => (
+                <div key={index} className="material-file">
+                  {isImage(url) ? (
+                    <img src={url} alt={`Document ${index + 1}`} />
+                  ) : (
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                      View PDF {index + 1}
+                    </a>
+                  )}
+                </div>
               ))}
             </Slider>
           </div>

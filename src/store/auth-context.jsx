@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useCallback } from "react";
-
-let logoutTimer;
+import React, { useState, useCallback } from "react";
 
 const AuthContext = React.createContext({
   token: "",
@@ -11,37 +9,17 @@ const AuthContext = React.createContext({
   logout: () => {},
 });
 
-const calculateRemainingTime = (expirationTime) => {
-  const currentTime = new Date().getTime();
-  const adjExpirationTime = new Date(expirationTime).getTime();
-  const remainingDuration = adjExpirationTime - currentTime;
-
-  return remainingDuration;
+const retrieveStoredUserId = () => {
+  const storedUserId = localStorage.getItem("userId");
+  return {
+    userId: storedUserId,
+  };
 };
 
 const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem("token");
-  const storedExpirationDate = localStorage.getItem("expirationTime");
-
-  const remainingTime = calculateRemainingTime(storedExpirationDate);
-
-  if (remainingTime <= 60000) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-    return null;
-  }
-
   return {
     token: storedToken,
-    duration: remainingTime,
-  };
-};
-
-const retrieveStoredUserId = () => {
-  const storedUserId = localStorage.getItem("userId");
-
-  return {
-    userId: storedUserId,
   };
 };
 
@@ -70,30 +48,14 @@ export const AuthContextProvider = (props) => {
     setUserId(null);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    localStorage.removeItem("expirationTime");
-
-    if (logoutTimer) {
-      clearTimeout(logoutTimer);
-    }
   }, []);
 
-  const loginHandler = (token, userId, expirationTime) => {
+  const loginHandler = (token, userId) => {
     setToken(token);
     setUserId(userId);
     localStorage.setItem("userId", userId);
     localStorage.setItem("token", token);
-    localStorage.setItem("expirationTime", expirationTime);
-
-    const remainingTime = calculateRemainingTime(expirationTime);
-
-    logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
-
-  useEffect(() => {
-    if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
-    }
-  }, [tokenData, logoutHandler]);
 
   const contextValue = {
     token: token,

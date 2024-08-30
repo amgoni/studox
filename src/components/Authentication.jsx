@@ -138,11 +138,7 @@ const Authentication = ({ closeModal }) => {
           }
         }
 
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-
-        authCtx.login(data.idToken, data.localId, expirationTime.toISOString());
+        authCtx.login(data.idToken, data.localId);
 
         setSuccessMessage("Success!");
         setTimeout(() => {
