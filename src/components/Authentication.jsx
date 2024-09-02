@@ -3,6 +3,7 @@ import { db } from "../config/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 import AuthContext from "../store/auth-context.jsx";
 import "./Authentication.scss";
+import { Faculties } from "../Data.jsx";
 
 // eslint-disable-next-line react/prop-types
 const Authentication = ({ closeModal }) => {
@@ -20,6 +21,9 @@ const Authentication = ({ closeModal }) => {
   const [showPasswordRequirements, setShowPasswordRequirements] =
     useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedInstitution, setSelectedInstitution] = useState("");
 
   const resetForm = () => {
     emailInputRef.current.value = "";
@@ -40,6 +44,19 @@ const Authentication = ({ closeModal }) => {
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
+  };
+
+  const handleFacultyChange = (event) => {
+    setSelectedFaculty(event.target.value);
+    setSelectedDepartment(""); // Reset department when faculty changes
+  };
+
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  };
+
+  const handleInstitutionChange = (event) => {
+    setSelectedInstitution(event.target.value);
   };
 
   const submitHandler = (event) => {
@@ -132,6 +149,9 @@ const Authentication = ({ closeModal }) => {
               lastName: lastName,
               userId: data.localId,
               email: enteredEmail,
+              faculty: selectedFaculty,
+              department: selectedDepartment,
+              institution: selectedInstitution,
             });
 
             console.log("Document written with ID: ", docRef.id);
@@ -174,6 +194,61 @@ const Authentication = ({ closeModal }) => {
           <label htmlFor="email">Email</label>
           <input type="email" id="email" required ref={emailInputRef} />
         </div>
+
+        {!isLogin && (
+          <div className="authentication-field">
+            <label htmlFor="institution">Institution</label>
+            <select
+              id="institution"
+              required
+              value={selectedInstitution}
+              onChange={handleInstitutionChange}
+            >
+              <option value="">Select Institution</option>
+              <option value="ATBU">Abubakar Tafawa Balewa University</option>
+            </select>
+          </div>
+        )}
+        {!isLogin && (
+          <div className="authentication-field">
+            <label htmlFor="faculty">Faculty</label>
+            <select
+              id="faculty"
+              required
+              value={selectedFaculty}
+              onChange={handleFacultyChange}
+            >
+              <option value="">Select Faculty</option>
+              {Faculties.map((faculty) => (
+                <option key={faculty.id} value={faculty.value}>
+                  {faculty.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {!isLogin && selectedFaculty && (
+          <div className="authentication-field">
+            <label htmlFor="department">Department</label>
+            <select
+              id="department"
+              required
+              value={selectedDepartment}
+              onChange={handleDepartmentChange}
+            >
+              <option value="">Select Department</option>
+              {Faculties.find(
+                (faculty) => faculty.value === selectedFaculty
+              )?.departments.map((department) => (
+                <option key={department.id} value={department.value}>
+                  {department.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="authentication-field">
           <label htmlFor="password">Password</label>
           <input
