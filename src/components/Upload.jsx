@@ -22,6 +22,7 @@ const Upload = ({ closeModal }) => {
     level: "",
     session: "",
     type: "assignment",
+    comment: "",
     files: [],
     fileURLs: [],
   });
@@ -97,6 +98,7 @@ const Upload = ({ closeModal }) => {
         level: formData.level,
         session: formData.session,
         type: formData.type,
+        comment: formData.comment,
         uploader: authCtx.userId,
         fileURLs, // Save all file URLs in a single field
       };
@@ -114,6 +116,7 @@ const Upload = ({ closeModal }) => {
         level: "",
         session: "",
         type: "assignment",
+        comment: "",
         files: [], // Reset the files array
         fileURLs: [],
       });
@@ -266,10 +269,22 @@ const Upload = ({ closeModal }) => {
                   onChange={handleInputChange}
                   required
                 >
+                  <option value="">Select material type...</option>
+                  <option value="note">Note</option>
                   <option value="assignment">Assignment</option>
                   <option value="test">Test</option>
                   <option value="exams">Exams</option>
                 </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="comment">Comment (optional)</label>
+                <input
+                  type="text"
+                  name="comment"
+                  id="comment"
+                  value={formData.comment}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
             <div className="form-group">
